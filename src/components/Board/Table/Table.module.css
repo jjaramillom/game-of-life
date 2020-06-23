@@ -1,0 +1,9 @@
+.table {
+    margin: 10px 10px;
+    border: gray;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    max-width: fit-content;
+    max-height: fit-content;
+}

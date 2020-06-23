@@ -1,0 +1,13 @@
+.cell {
+	background-color: black;
+	border: gray;
+    border-style: solid;
+    border-width: 0.5px;
+	width: 7px;
+	height: 7px;
+	padding: 0.4px;
+}
+
+.filled {
+	background-color: #28ed05;
+}
