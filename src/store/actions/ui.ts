@@ -1,13 +1,13 @@
-import { actionTypes } from './actionTypes';
+import { uiActionTypes } from './actionTypes';
 
 export const mouseDown = () => {
 	return {
-		type: actionTypes.MOUSE_DOWN,
+		type: uiActionTypes.MOUSE_DOWN,
 	};
 };
 
 export const mouseUp = () => {
 	return {
-		type: actionTypes.MOUSE_UP,
+		type: uiActionTypes.MOUSE_UP,
 	};
 };
