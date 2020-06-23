@@ -16,7 +16,7 @@ const shouldLive = (coord: Coordinate, board: Board): boolean => {
 	// if cell is alive
 	const aliveNeighbors = getAliveNeighbors(coord, board);
 	if (board[coord.x][coord.y]) {
-		return aliveNeighbors === 2;
+		return aliveNeighbors === 2 || aliveNeighbors === 3;
 	}
 	return aliveNeighbors === 3;
 };
@@ -35,14 +35,17 @@ const getAliveNeighbors = (coord: Coordinate, board: Board): number => {
 		minX = coord.x - 1;
 		maxX = coord.x;
 	} else if (coord.x === 0) {
+		//if it is in the far left end
 		minX = coord.x;
 		maxX = coord.x + 1;
 	}
 
+	//if it is in the top
 	if (coord.y === board[0].length - 1) {
 		minY = coord.y - 1;
 		maxY = coord.y;
 	} else if (coord.y === 0) {
+		//if it is in the bottom
 		minY = coord.y;
 		maxY = coord.y + 1;
 	}

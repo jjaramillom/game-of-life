@@ -8,6 +8,7 @@ type Props = {
 	alive?: boolean;
 	coordinate: Coordinate;
 	shouldBeAlive?: boolean;
+	clickedDown: boolean;
 	onSetAlive: Function;
 };
 
@@ -15,11 +16,19 @@ const Square = (props: Props) => {
 	const [filled, setFilled] = useState(props.alive || false);
 
 	const style = [classes.cell];
-	
-	useEffect(() => {
-		setFilled(props.shouldBeAlive as boolean)
-	}, [props.shouldBeAlive]);
 
+	useEffect(() => {
+		console.log('setting filled to', props.shouldBeAlive);
+
+		setFilled(props.shouldBeAlive as boolean);
+	}, [props]);
+
+	const onMouseMoveHandler = () => {
+		if (props.clickedDown && !filled) {
+			setFilled(true);
+			props.onSetAlive(props.coordinate);
+		}
+	};
 
 	const onclickHandler = () => {
 		setFilled(!filled);
@@ -28,7 +37,12 @@ const Square = (props: Props) => {
 
 	if (filled) style.push(classes.filled);
 
-	return <div onClick={onclickHandler} className={style.join(' ')}></div>;
+	return (
+		<div
+			onMouseMove={onMouseMoveHandler}
+			onClick={onclickHandler}
+			className={style.join(' ')}></div>
+	);
 };
 
 const mapDispatchToProps = (dispatch: Function) => {
@@ -37,10 +51,10 @@ const mapDispatchToProps = (dispatch: Function) => {
 	};
 };
 
-const mapStateToProps = (state: GameState, ownProps: any) => {
+const mapStateToProps = (state: State, ownProps: any) => {
 	const { coordinate } = ownProps;
-	const alive = state.board[coordinate.x][coordinate.y];
-	return { ShouldBeAlive: alive };
+	const alive = state.game.board[coordinate.x][coordinate.y];
+	return { shouldBeAlive: alive, clickedDown: state.ui.clicked };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Square);

@@ -25,9 +25,9 @@ const Menu = (props: Props) => {
 	);
 };
 
-const mapStateToProps = (state: GameState) => {
+const mapStateToProps = (state: State) => {
 	return {
-		generation: state.generation,
+		generation: state.game.generation,
 	};
 };
 

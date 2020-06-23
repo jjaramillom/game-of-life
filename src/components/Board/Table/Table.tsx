@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import classes from './Table.module.css';
 import Row from '../Row/Row';
@@ -12,14 +12,19 @@ type Props = {
 	rows: number;
 	columns: number;
 	onInit: Function;
+	onMouseUp: Function;
+	onMouseDown: Function;
 };
 
 const Table = (props: Props) => {
 	EventEmitter.subscribe('tick', (data: any) => {
-		console.log(data);
 	});
-	props.onInit({ columns: props.columns, rows: props.rows });
 
+	const onMouseDown = () => props.onMouseDown();
+	const onMouseUp = () => props.onMouseUp();
+
+
+	props.onInit({ columns: props.columns, rows: props.rows });
 
 	const table = new Array(props.rows).fill(null).map((_, row_i) => {
 		const cells = new Array(props.columns)
@@ -31,12 +36,18 @@ const Table = (props: Props) => {
 		return <Row key={row_i}>{cells}</Row>;
 	});
 
-	return <div className={classes.table}>{table}</div>;
+	return (
+		<div onMouseDown={onMouseDown} onMouseUp={onMouseUp} className={classes.table}>
+			{table}
+		</div>
+	);
 };
 
 const mapDispatchToProps = (dispatch: Function) => {
 	return {
 		onInit: (board: BoardSize) => dispatch(actions.init(board)),
+		onMouseDown: () => dispatch(actions.mouseDown()),
+		onMouseUp: () => dispatch(actions.mouseUp()),
 	};
 };
 
