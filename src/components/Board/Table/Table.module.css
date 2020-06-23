@@ -6,4 +6,5 @@
     border-width: 2px;
     max-width: fit-content;
     max-height: fit-content;
+    min-width: max-content;
 }

@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import Table from './components/Board/Table/Table'
-import Menu from './components/Controls/Menu/Menu'
+import Main from './containers/Main/Main';
 
 function App() {
-	return <div className='App'>
-    <Table columns={20} rows={20} ></Table>
-    <Menu/>
-  </div>;
+	return (
+		<div className='App'>
+			<Main />
+		</div>
+	);
 }
 
 export default App;

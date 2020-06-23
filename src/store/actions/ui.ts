@@ -1,7 +1,5 @@
 import { actionTypes } from './actionTypes';
 
-import EventEmitter from '../../common/EventEmitter';
-
 export const mouseDown = () => {
 	return {
 		type: actionTypes.MOUSE_DOWN,

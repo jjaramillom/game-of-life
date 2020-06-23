@@ -8,8 +8,10 @@ type Action = {
 };
 
 const initialState: GameState = {
+	boardSize: { columns: 0, rows: 0 },
 	generation: 0,
 	board: [],
+	running: false,
 };
 
 const shouldLive = (coord: Coordinate, board: Board): boolean => {
@@ -79,14 +81,30 @@ const updateBoard = (state: GameState): Board => {
 
 export default (state: GameState = initialState, action: Action): GameState => {
 	switch (action.type) {
+		case actionTypes.CLEAR_BOARD:
+			return { ...state, board: createBoard(state.boardSize), generation: 0 };
+
 		case actionTypes.CREATE_BOARD:
-			return { ...state, board: createBoard(action.boardSize) };
+			return { ...state, board: createBoard(action.boardSize), boardSize: action.boardSize };
 
 		case actionTypes.SET_ALIVE:
 			return setAlive(state, action);
 
 		case actionTypes.TICK:
 			return { ...state, generation: state.generation + 1, board: updateBoard(state) };
+
+		case actionTypes.START_GAME:
+			return {
+				...state,
+				running: true,
+				generation: state.generation + 1,
+				board: updateBoard(state),
+			};
+		case actionTypes.PAUSE_GAME:
+			return {
+				...state,
+				running: false,
+			};
 		default:
 			return state;
 	}

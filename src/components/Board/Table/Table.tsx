@@ -37,7 +37,7 @@ const Table = (props: Props) => {
 	});
 
 	return (
-		<div onMouseDown={onMouseDown} onMouseUp={onMouseUp} className={classes.table}>
+		<div onMouseDownCapture={onMouseDown} onMouseUpCapture={onMouseUp} className={classes.table}>
 			{table}
 		</div>
 	);

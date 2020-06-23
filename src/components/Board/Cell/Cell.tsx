@@ -18,8 +18,6 @@ const Square = (props: Props) => {
 	const style = [classes.cell];
 
 	useEffect(() => {
-		console.log('setting filled to', props.shouldBeAlive);
-
 		setFilled(props.shouldBeAlive as boolean);
 	}, [props]);
 

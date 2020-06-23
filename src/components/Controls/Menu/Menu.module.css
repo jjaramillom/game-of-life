@@ -1,3 +1,14 @@
 .label {
-    color: gray;
+	color: gray;
+}
+
+.menu {
+	border: gray;
+	border-width: 1px;
+	border-style: solid;
+	padding: 10px;
+}
+
+.row {
+	margin-bottom: 10px;
 }

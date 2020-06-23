@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 import './index.css';
 import App from './App';
@@ -15,11 +16,12 @@ const rootReducer = combineReducers({
 	game: gameReducer,
 });
 
-const store = createStore(
-	rootReducer,
-	(window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-		(window as any).__REDUX_DEVTOOLS_EXTENSION__()
-);
+// const composeEnhancers =
+// 	(process.env.NODE_ENV === 'development' &&
+// 		(window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+// 	compose;
+
+const store = createStore(rootReducer, /* composeEnhancers */(applyMiddleware(thunk)));
 
 const app = (
 	<Provider store={store}>

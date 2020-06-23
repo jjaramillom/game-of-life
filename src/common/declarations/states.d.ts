@@ -1,6 +1,8 @@
 type GameState = {
 	generation: number;
 	board: Board; //[rows][columns]
+	boardSize: BoardSize;
+	running: boolean;
 };
 
 type UIState = {
