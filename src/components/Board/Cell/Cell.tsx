@@ -1,36 +1,41 @@
 import React, { useState, useEffect } from 'react';
 
 import classes from './Cell.module.css';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import actions from '../../../store/actions';
 
 type Props = {
 	alive?: boolean;
 	coordinate: Coordinate;
 	shouldBeAlive?: boolean;
-	clickedDown: boolean;
-	onSetAlive: Function;
 };
 
 const Square = (props: Props) => {
 	const [filled, setFilled] = useState(props.alive || false);
-
 	const style = [classes.cell];
 
+	const dispatch = useDispatch();
+	const onSetAlive = (coordinate: Coordinate) => dispatch(actions.setAlive(coordinate));
+
+	const shouldBeAlive = useSelector(
+		(state: State) => state.game.board[props.coordinate.x][props.coordinate.y]
+	);
+	const clickedDown = useSelector((state: State) => state.ui.clicked);
+
 	useEffect(() => {
-		setFilled(props.shouldBeAlive as boolean);
-	}, [props]);
+		setFilled(shouldBeAlive as boolean);
+	}, [shouldBeAlive]);
 
 	const onMouseMoveHandler = () => {
-		if (props.clickedDown && !filled) {
+		if (clickedDown && !filled) {
 			setFilled(true);
-			props.onSetAlive(props.coordinate);
+			onSetAlive(props.coordinate);
 		}
 	};
 
 	const onclickHandler = () => {
 		setFilled(!filled);
-		props.onSetAlive(props.coordinate);
+		onSetAlive(props.coordinate);
 	};
 
 	if (filled) style.push(classes.filled);
@@ -43,16 +48,4 @@ const Square = (props: Props) => {
 	);
 };
 
-const mapDispatchToProps = (dispatch: Function) => {
-	return {
-		onSetAlive: (coordinate: Coordinate) => dispatch(actions.setAlive(coordinate)),
-	};
-};
-
-const mapStateToProps = (state: State, ownProps: any) => {
-	const { coordinate } = ownProps;
-	const alive = state.game.board[coordinate.x][coordinate.y];
-	return { shouldBeAlive: alive, clickedDown: state.ui.clicked };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Square);
+export default React.memo(Square);

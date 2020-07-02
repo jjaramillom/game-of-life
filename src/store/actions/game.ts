@@ -60,11 +60,18 @@ export const pauseGame = () => {
 	};
 };
 
+export const randomizeBoard = () =>{
+	return {
+		type: gameActionTypes.RANDOMIZE_BOARD,
+	};
+}
+
 export const startGame = (speed: number) => {
 	if (updateInterval) {
 		clearInterval();
 	}
 	return (dispatch: Function) => {
+		
 		const ms = 1000 / speed;
 		dispatch(setStartGame());
 		dispatch(startInterval(ms));

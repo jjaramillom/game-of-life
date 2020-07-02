@@ -1,31 +1,33 @@
 import React from 'react';
 
+import Card from 'react-bootstrap/Card';
+
 import classes from './Table.module.css';
 import Row from '../Row/Row';
 import Cell from '../Cell/Cell';
 
-import EventEmitter from '../../../common/EventEmitter';
-import { connect } from 'react-redux';
+// import EventEmitter from '../../../common/EventEmitter';
+import { useDispatch } from 'react-redux';
+
 import actions from '../../../store/actions';
+import Col from 'react-bootstrap/Col';
 
 type Props = {
 	rows: number;
 	columns: number;
-	onInit: Function;
-	onMouseUp: Function;
-	onMouseDown: Function;
 };
 
 const Table = (props: Props) => {
-	EventEmitter.subscribe('tick', (data: any) => {
-	});
+	// EventEmitter.subscribe('reDraw', (data: any) => {});
+	const dispatch = useDispatch();
 
-	const onMouseDown = () => props.onMouseDown();
-	const onMouseUp = () => props.onMouseUp();
+	const onInit = (board: BoardSize) => dispatch(actions.init(board));
+	const onMouseDown = () => dispatch(actions.mouseDown());
+	const onMouseUp = () => dispatch(actions.mouseUp());
 
-
-	props.onInit({ columns: props.columns, rows: props.rows });
-
+	onInit({ columns: props.columns, rows: props.rows });
+	console.log('test');
+	
 	const table = new Array(props.rows).fill(null).map((_, row_i) => {
 		const cells = new Array(props.columns)
 			.fill(null)
@@ -37,18 +39,19 @@ const Table = (props: Props) => {
 	});
 
 	return (
-		<div onMouseDownCapture={onMouseDown} onMouseUpCapture={onMouseUp} className={classes.table}>
-			{table}
-		</div>
+		<Card className={classes.card}>
+			<Row className='justify-content-center'>
+				<Col>
+					<div
+						onMouseDownCapture={onMouseDown}
+						onMouseUpCapture={onMouseUp}
+						className={classes.table}>
+						{table}
+					</div>
+				</Col>
+			</Row>
+		</Card>
 	);
 };
 
-const mapDispatchToProps = (dispatch: Function) => {
-	return {
-		onInit: (board: BoardSize) => dispatch(actions.init(board)),
-		onMouseDown: () => dispatch(actions.mouseDown()),
-		onMouseUp: () => dispatch(actions.mouseUp()),
-	};
-};
-
-export default connect(null, mapDispatchToProps)(Table);
+export default React.memo(Table);

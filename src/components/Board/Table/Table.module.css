@@ -8,3 +8,8 @@
     max-height: fit-content;
     min-width: max-content;
 }
+
+.card {
+    width: fit-content;
+	padding: 20px;
+}

@@ -5,6 +5,7 @@ export enum gameActionTypes {
 	SET_ALIVE = 'SET_ALIVE',
 	START_GAME = 'START_GAME',
 	PAUSE_GAME = 'PAUSE_GAME',
+	RANDOMIZE_BOARD = 'RANDOMIZE_BOARD',
 }
 
 export enum uiActionTypes {

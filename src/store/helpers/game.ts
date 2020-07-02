@@ -1,5 +1,9 @@
 import { Action } from '../reducers/game';
 
+export const randomizeShouldLive = (aliveRandomness: number = 0.5): boolean => {
+	return Math.random() > aliveRandomness;
+};
+
 export const shouldLive = (coord: Coordinate, board: Board): boolean => {
 	// if cell is alive
 	const aliveNeighbors = getAliveNeighbors(coord, board);
@@ -56,5 +60,5 @@ export const setAlive = (state: GameState, { coordinate }: Action) => {
 export const createBoard = (boardSize: BoardSize) => {
 	return new Array(boardSize.rows)
 		.fill(null)
-		.map((_) => new Array(boardSize.rows).fill(false));
+		.map((_) => new Array(boardSize.columns).fill(false));
 };
