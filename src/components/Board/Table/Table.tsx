@@ -26,7 +26,6 @@ const Table = (props: Props) => {
 	const onMouseUp = () => dispatch(actions.mouseUp());
 
 	onInit({ columns: props.columns, rows: props.rows });
-	console.log('test');
 	
 	const table = new Array(props.rows).fill(null).map((_, row_i) => {
 		const cells = new Array(props.columns)

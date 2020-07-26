@@ -7,7 +7,7 @@ import {
 	pauseGame,
 	randomizeBoard,
 } from './game';
-import { mouseDown, mouseUp } from './ui';
+import { mouseDown, mouseUp, updateColor } from './ui';
 
 export default {
 	init,
@@ -19,4 +19,5 @@ export default {
 	startGame,
 	pauseGame,
 	randomizeBoard,
+	updateColor
 };

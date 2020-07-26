@@ -65,6 +65,6 @@ const reducerMap = {
 
 export default (state: GameState = initialState, action: Action): GameState => {
 	if (reducerMap[action.type]) return reducerMap[action.type](state, action);
-	console.log(`Not implemented action: ${action.type}`);
+	// console.log(`Not implemented action: ${action.type}`);
 	return state;
 };

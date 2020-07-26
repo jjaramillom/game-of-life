@@ -1,3 +1,18 @@
 .card {
-	padding: 20px;
+  padding: 20px;
+}
+
+.menu {
+  min-width: fit-content;
+}
+
+.row {
+  width: 400px !important;
+}
+
+.colorPicker {
+  position: absolute !important;
+  z-index: 999 !important;
+  left: 220px;
+  top: 50px;
 }
